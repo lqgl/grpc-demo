@@ -1,0 +1,11 @@
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go get -u google.golang.org/grpc
+
+# 生成证书 key.pem & cert.pem
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/CN=localhost" -addext "subjectAltName = DNS:localhost"
+
+mustEmbedUnimplemented*** method appear in grpc-server
+https://github.com/grpc/grpc-go/issues/3794
+
+rpc error: code = Unavailable desc = connection error: desc = "transport: authentication handshake failed: x509: certificate relies on legacy Common Name field, use SANs instead"
+https://stackoverflow.com/questions/64814173/how-do-i-use-sans-with-openssl-instead-of-common-name
